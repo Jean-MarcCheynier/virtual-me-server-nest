@@ -14,7 +14,7 @@ export class UserService {
     return createdUser.save();
   }
 
-  async findAll(): Promise<User[]> {
+  findAll(): Promise<User[]> {
     return this.userModel.find().exec();
   }
 
@@ -22,8 +22,8 @@ export class UserService {
     return this.userModel.findById(id).exec();
   }
 
-  findByName(name: string) {
-    return this.userModel.findOne({ name }).exec();
+  findByUsername(username: string) {
+    return this.userModel.findOne({ username }).exec();
   }
 
   update(id: string, updateUserDto: UpdateUserDto) {
@@ -32,5 +32,9 @@ export class UserService {
 
   remove(id: string) {
     return this.userModel.findByIdAndDelete(id).exec();
+  }
+
+  removeAll() {
+    return this.userModel.remove().exec();
   }
 }

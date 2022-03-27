@@ -14,9 +14,7 @@ export class JwtAuthGuard extends AuthGuard('jwt') {
       context.getHandler(),
       context.getClass(),
     ]);
-    console.log('IS PUBLIC ?');
     if (isPublic) {
-      console.log('Yeahhh ?');
       return true;
     }
     return super.canActivate(context);

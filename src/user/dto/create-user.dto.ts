@@ -5,9 +5,9 @@ export class CreateUserDto {
   @ApiProperty({
     description: 'User name',
   })
-  name: string;
+  username: string;
   @ApiProperty()
-  email: string;
+  email?: string;
   @ApiProperty({
     description: 'User role',
     enum: [Role.ADMIN, Role.GUEST, Role.USER],
