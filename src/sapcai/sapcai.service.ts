@@ -40,8 +40,6 @@ export class SapcaiService {
     tokenType: string,
   ): Observable<AxiosResponse<any>> {
     const DIALOG_URL = this.config.get('sap_cai.dialog_url');
-    console.log('Token type', tokenType);
-    console.log('Access token', accessToken);
     return this.httpService.post(DIALOG_URL, dialogRequest, {
       headers: {
         Authorization: `Bearer ${accessToken}`,

@@ -28,8 +28,6 @@ export class SapcaiController {
     const res = await firstValueFrom(
       this.sapCaiService.dialogWithRefresh(dialogRequest),
     );
-    console.log('HEEERRRE');
-    console.log(res.data.results);
     return res.data.results;
   }
 }
