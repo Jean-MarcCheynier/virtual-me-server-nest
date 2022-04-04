@@ -25,7 +25,6 @@ export class UserController {
     return this.userService.create(createUserDto);
   }
 
-  //@Public()
   @Roles(Role.ADMIN)
   @Get()
   findAll(): Promise<User[]> {

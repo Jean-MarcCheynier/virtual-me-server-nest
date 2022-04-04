@@ -10,13 +10,13 @@ export class User {
   @Prop({ type: String, required: true, unique: true })
   username: string;
 
-  @Prop({ type: String, required: true })
-  email: string;
+  @Prop({ type: String, required: false })
+  email?: string;
 
   @Prop({ type: [String], default: [Role.USER], required: true })
   role: Role[];
 
-  @Prop({ type: String, required: true })
+  @Prop({ type: String, required: true, select: false })
   password: string;
 }
 

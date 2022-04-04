@@ -9,7 +9,7 @@ import { User, UserDocument } from './schema/user.schema';
 export class UserService {
   constructor(@InjectModel(User.name) private userModel: Model<UserDocument>) {}
 
-  create(createUserDto: CreateUserDto) {
+  create(createUserDto: CreateUserDto): Promise<User> {
     const createdUser = new this.userModel(createUserDto);
     return createdUser.save();
   }
@@ -23,7 +23,7 @@ export class UserService {
   }
 
   findByUsername(username: string) {
-    return this.userModel.findOne({ username }).exec();
+    return this.userModel.findOne({ username }).select('+password').exec();
   }
 
   update(id: string, updateUserDto: UpdateUserDto) {

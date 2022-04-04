@@ -3,4 +3,11 @@ export default () => ({
   database: {
     uri: process.env.MONGO_URI,
   },
+  sap_cai: {
+    auth_url: process.env.SAP_CAI_AUTH_URL,
+    client_id: process.env.SAP_CAI_CLIENT_ID,
+    client_secret: process.env.SAP_CAI_CLIENT_SECRET,
+    dialog_url: process.env.SAP_CAI_DIALOG_URL,
+    xtoken: process.env.SAP_CAI_XTOKEN,
+  },
 });

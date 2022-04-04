@@ -5,10 +5,15 @@ export class SignupDto {
     description: 'Username',
     required: true,
   })
-  name: string;
+  username: string;
   @ApiProperty({
-    description: 'User name',
+    description: 'User password',
     required: true,
   })
   password: string;
+  @ApiProperty({
+    description: 'User email',
+    required: false,
+  })
+  email: string;
 }
