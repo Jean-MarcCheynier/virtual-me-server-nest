@@ -2,10 +2,13 @@ import { Body, Controller, Get, Post, Req } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { SendMessageDto } from './dto/send-message.dto';
 import { SapcaiService } from './sapcai.service';
-import { Role } from '@virtual-me/virtual-me-ts-core';
+import { MessageType, Role } from '@virtual-me/virtual-me-ts-core';
 import { UserService } from '../user/user.service';
 import { Roles } from 'src/common/decorator/roles.decorator';
 import { firstValueFrom } from 'rxjs';
+import { User } from 'src/common/decorator/user.decorator';
+import { UserDocument } from 'src/user/schema/user.schema';
+import { v4 as uuidv4 } from 'uuid';
 
 @ApiTags('SAP CAI')
 @Controller('sapcai')
@@ -17,12 +20,17 @@ export class SapcaiController {
 
   @Roles(Role.GUEST, Role.USER)
   @Post()
-  async dialog(@Body() sendMessageDto: SendMessageDto, @Req() req) {
+  async dialog(
+    @Body() sendMessageDto: SendMessageDto,
+    @User() { _id: userId, conversations }: UserDocument,
+  ) {
+    const convId = conversations?.[0].conversationId || uuidv4();
+    this.userService.startConversation(userId, convId);
     const dialogRequest = {
-      conversation_id: 'test-1lml1710783036',
+      conversation_id: convId,
       message: {
-        type: 'text',
-        content: 'Bonjour',
+        type: MessageType.TEXT,
+        content: sendMessageDto.message,
       },
     };
     const res = await firstValueFrom(
