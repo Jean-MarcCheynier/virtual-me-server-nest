@@ -53,7 +53,6 @@ describe('SapcaiService', () => {
           },
         },
         requestTokenResponse.access_token,
-        requestTokenResponse.token_type,
       ),
     );
 

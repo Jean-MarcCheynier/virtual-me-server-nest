@@ -8,4 +8,4 @@ export class Conversation {
   conversationId: string;
 }
 
-export const ConversationSchema = SchemaFactory.createForClass(Conversation);
+export const conversationSchema = SchemaFactory.createForClass(Conversation);

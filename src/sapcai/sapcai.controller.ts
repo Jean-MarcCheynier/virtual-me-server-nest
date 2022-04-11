@@ -21,16 +21,20 @@ export class SapcaiController {
   @Roles(Role.GUEST, Role.USER)
   @Post()
   async dialog(
-    @Body() sendMessageDto: SendMessageDto,
+    @Body() { message, restart }: SendMessageDto,
     @User() { _id: userId, conversations }: UserDocument,
   ) {
-    const convId = conversations?.[0].conversationId || uuidv4();
-    this.userService.startConversation(userId, convId);
+    let convId = conversations?.[0].conversationId;
+    if (restart || restart) {
+      convId = uuidv4();
+      this.userService.restartConversation(userId, convId);
+    }
+
     const dialogRequest = {
       conversation_id: convId,
       message: {
         type: MessageType.TEXT,
-        content: sendMessageDto.message,
+        content: message,
       },
     };
     const res = await firstValueFrom(

@@ -5,4 +5,9 @@ export class SendMessageDto {
     description: 'Message to send',
   })
   message: string;
+  @ApiProperty({
+    description: 'Should restart conversation',
+    required: false,
+  })
+  restart = false;
 }

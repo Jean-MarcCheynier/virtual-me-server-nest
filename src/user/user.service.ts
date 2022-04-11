@@ -27,13 +27,13 @@ export class UserService {
     return this.userModel.findOne({ username }).select('+password').exec();
   }
 
-  startConversation(userId: string, conversationId: string) {
-    const newConversation: Conversation = {
-      conversationId,
-    };
-    return this.userModel
-      .findByIdAndUpdate(userId, { $push: { conversation: newConversation } })
-      .exec();
+  restartConversation(userId: string, conversationId: string) {
+    const newConversation: Conversation = new Conversation();
+    newConversation.conversationId = conversationId;
+
+    return this.userModel.findByIdAndUpdate(userId, {
+      $push: { conversations: [newConversation] },
+    });
   }
 
   update(id: string, updateUserDto: UpdateUserDto) {
