@@ -1,9 +1,10 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { Role } from '@virtual-me/virtual-me-ts-core';
-import { cryptPwd, User, UserSchema } from './schema/user.schema';
+import { User } from './schema/user.schema';
 import { UserController } from './user.controller';
 import { UserService } from './user.service';
 import { MongooseModule } from '@nestjs/mongoose';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 
 describe('UserController', () => {
   let controller: UserController;
@@ -12,22 +13,17 @@ describe('UserController', () => {
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       imports: [
-        MongooseModule.forRoot(
-          'mongodb+srv://test:W7MadYP4RbR8wMYk@cportfolio.3v9yf.gcp.mongodb.net/test?retryWrites=true&w=majority',
-        ),
-        MongooseModule.forFeatureAsync([
-          {
-            name: User.name,
-            useFactory: () => {
-              const schema = UserSchema;
-              schema.pre('save', cryptPwd);
-              return schema;
-            },
-          },
-        ]),
+        ConfigModule,
+        MongooseModule.forRootAsync({
+          imports: [ConfigModule],
+          useFactory: async (config: ConfigService) => ({
+            uri: config.get('database.uri'),
+          }),
+          inject: [ConfigService],
+        }),
       ],
       controllers: [UserController],
-      providers: [UserService],
+      providers: [UserService, ConfigService],
     }).compile();
 
     controller = await module.resolve<UserController>(UserController);
@@ -47,6 +43,11 @@ describe('UserController', () => {
           email: 'test@test.com',
           role: [Role.ADMIN],
           password: 'xyz',
+          conversations: [
+            {
+              conversationId: 'xyz',
+            },
+          ],
         },
       ];
 
