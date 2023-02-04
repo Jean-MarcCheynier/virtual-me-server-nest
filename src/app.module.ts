@@ -17,14 +17,14 @@ import { WsModule } from './ws/ws.module';
 import { LoggerMiddleware } from './common/middleware/logger.middleware';
 
 import { RolesGuard } from './auth/guard/roles.guard';
-import { JwtAuthGuard } from 'src/auth/guard/jwt-auth.guard';
+import { JwtAuthGuard } from './auth/guard/jwt-auth.guard';
 import { SapcaiModule } from './sapcai/sapcai.module';
 import configuration from './config/configuration';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
-      envFilePath: '.development.env',
+      envFilePath: '.env.development',
       isGlobal: true,
       load: [configuration],
       cache: true,
@@ -33,6 +33,7 @@ import configuration from './config/configuration';
       imports: [ConfigModule],
       useFactory: async (config: ConfigService) => ({
         uri: config.get('database.uri'),
+        dbName: config.get('database.name'),
       }),
       inject: [ConfigService],
     }),

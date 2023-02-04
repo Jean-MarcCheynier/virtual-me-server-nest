@@ -1,7 +1,8 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { INestApplication } from '@nestjs/common';
+import { HttpStatus, INestApplication } from '@nestjs/common';
 import * as request from 'supertest';
 import { AppModule } from './../src/app.module';
+import { response } from 'express';
 
 describe('AppController (e2e)', () => {
   let app: INestApplication;
@@ -15,10 +16,29 @@ describe('AppController (e2e)', () => {
     await app.init();
   });
 
-  it('/ (GET)', () => {
-    return request(app.getHttpServer())
-      .get('/')
-      .expect(200)
-      .expect('Hello World!');
+  afterAll(
+    async () => {
+      await app.close();
+    },
+    50000, // This teardown can take some time, so we allow a bigger timeout
+  );
+
+  it.only('/ (GET)', async () => {
+    //Arrange
+    const signupMock = {
+      username: 'string2',
+      password: 'string',
+      email: 'string2',
+    };
+
+    //Act
+    const response = await request(app.getHttpServer())
+      .post('/auth/signup')
+      .send(signupMock);
+
+    //Assert
+    expect(response.status).toBe(HttpStatus.CREATED);
+
+    console.log(response.body);
   });
 });

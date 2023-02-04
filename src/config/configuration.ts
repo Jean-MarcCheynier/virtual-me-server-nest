@@ -2,6 +2,7 @@ export default () => ({
   port: parseInt(process.env.PORT, 10) || 3000,
   database: {
     uri: process.env.MONGO_URI,
+    name: process.env.MONGO_NAME,
   },
   sap_cai: {
     auth_url: process.env.SAP_CAI_AUTH_URL,

@@ -4,10 +4,10 @@ import { SendMessageDto } from './dto/send-message.dto';
 import { SapcaiService } from './sapcai.service';
 import { MessageType, Role } from '@virtual-me/virtual-me-ts-core';
 import { UserService } from '../user/user.service';
-import { Roles } from 'src/common/decorator/roles.decorator';
+import { Roles } from '../common/decorator/roles.decorator';
 import { firstValueFrom } from 'rxjs';
-import { User } from 'src/common/decorator/user.decorator';
-import { UserDocument } from 'src/user/schema/user.schema';
+import { User } from '../common/decorator/user.decorator';
+import { UserDocument } from '../user/schema/user.schema';
 import { v4 as uuidv4 } from 'uuid';
 
 @ApiTags('SAP CAI')
