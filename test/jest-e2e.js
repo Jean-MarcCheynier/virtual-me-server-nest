@@ -6,5 +6,6 @@ module.exports = {
   transform: {
     "^.+\\.(t|j)s$": "ts-jest"
   },
-  preset: "@shelf/jest-mongodb"
+  preset: "@shelf/jest-mongodb",
+
 }
