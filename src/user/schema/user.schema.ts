@@ -16,7 +16,7 @@ export class User {
   email?: string;
 
   @Prop({ type: [String], default: [Role.USER], required: true })
-  role: Role[];
+  roles: Role[];
 
   @Prop({ type: String, required: true, select: false })
   password: string;
