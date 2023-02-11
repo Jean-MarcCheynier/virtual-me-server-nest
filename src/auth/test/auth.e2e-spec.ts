@@ -1,13 +1,13 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { HttpStatus, INestApplication } from '@nestjs/common';
 import * as request from 'supertest';
-import { AppModule } from '../src/app.module';
-import { MongoExceptionFilter } from '../src/exception-filters/mongo-exception.filter';
+import { AppModule } from '../../app.module';
+import { MongoExceptionFilter } from '../../exception-filters/mongo-exception.filter';
 
-import { UserBuilder } from './builder/user.builder';
+import { UserBuilder } from '../../../test/builder/user.builder';
 
 import { faker } from '@faker-js/faker';
-import { User } from '../src/user/schema/user.schema';
+import { User } from '../../user/schema/user.schema';
 import { Role } from '@virtual-me/virtual-me-ts-core';
 
 describe('AuthController', () => {
@@ -43,8 +43,6 @@ describe('AuthController', () => {
     THEN an eror 400 should be thrown
     `, async () => {
       //Arrange
-      console.log('existingUser');
-      console.log(existingUser);
       const signupMock = {
         username: faker.helpers.unique(faker.name.firstName),
         password: 'test',

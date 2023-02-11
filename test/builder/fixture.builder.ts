@@ -10,7 +10,7 @@ export abstract class FixtureBuilder<T> {
     this.repository = module?.get(TRepository);
   }
 
-  create() {
-    this.repository.create(this.fixture);
+  async create(): Promise<T> {
+    return this.repository.create(this.fixture);
   }
 }
