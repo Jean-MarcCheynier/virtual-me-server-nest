@@ -1,13 +1,14 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
+import { MongoRepository } from 'src/mongo-repository/abstract-mongo.repositiory';
 import { Conversation } from 'src/sapcai/schema/conversation.schema';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User, UserDocument } from './schema/user.schema';
 
 @Injectable()
-export class UserService {
+export class UserService implements MongoRepository<User> {
   constructor(@InjectModel(User.name) private userModel: Model<UserDocument>) {}
 
   create(createUserDto: CreateUserDto): Promise<User> {
