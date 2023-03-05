@@ -13,4 +13,8 @@ export abstract class FixtureBuilder<T> {
   async create(): Promise<T> {
     return this.repository.create(this.fixture);
   }
+
+  async clear(): Promise<void> {
+    return this.repository.clear();
+  }
 }

@@ -4,4 +4,5 @@ import { Model } from 'mongoose';
 
 export interface MongoRepository<T> {
   create(createDto: Partial<T>): Promise<T>;
+  clear(): Promise<void>;
 }

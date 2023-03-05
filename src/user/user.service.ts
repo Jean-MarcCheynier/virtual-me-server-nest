@@ -16,6 +16,10 @@ export class UserService implements MongoRepository<User> {
     return createdUser.save();
   }
 
+  clear(): any {
+    return this.userModel.deleteMany();
+  }
+
   findAll(): Promise<User[]> {
     return this.userModel.find().exec();
   }
