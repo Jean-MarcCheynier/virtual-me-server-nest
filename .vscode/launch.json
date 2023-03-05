@@ -17,7 +17,8 @@
       "program": "${workspaceRoot}/node_modules/jest/bin/jest.js",
       "args": ["-c", "./test/jest-e2e.js","--verbose", "-i", "--no-cache"],
       "console": "integratedTerminal",
-      "internalConsoleOptions": "neverOpen"
+      "internalConsoleOptions": "neverOpen",
     }
+
     ]
   }
