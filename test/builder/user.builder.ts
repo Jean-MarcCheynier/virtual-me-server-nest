@@ -21,4 +21,8 @@ export class UserBuilder extends FixtureBuilder<User> {
     this.fixture.roles = roles;
     return this;
   }
+  withPassword(password: string) {
+    this.fixture.password = password;
+    return this;
+  }
 }
