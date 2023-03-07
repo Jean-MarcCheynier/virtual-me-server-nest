@@ -2,8 +2,10 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Role } from '@virtual-me/virtual-me-ts-core';
 import { Document } from 'mongoose';
 import * as bcrypt from 'bcrypt';
-import { Conversation } from 'src/sapcai/schema/conversation.schema';
-import { ConversationSchema } from '../../sapcai/schema/conversation.schema';
+import {
+  Conversation,
+  ConversationSchema,
+} from '@/sapcai/schema/conversation.schema';
 
 export type UserDocument = User & Document;
 

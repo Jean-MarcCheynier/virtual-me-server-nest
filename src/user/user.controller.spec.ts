@@ -1,10 +1,10 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { Role } from '@virtual-me/virtual-me-ts-core';
 import { User } from './schema/user.schema';
 import { UserController } from './user.controller';
 import { UserService } from './user.service';
 import { MongooseModule } from '@nestjs/mongoose';
 import { ConfigModule, ConfigService } from '@nestjs/config';
+import { Role } from '@virtual-me/virtual-me-ts-core';
 
 describe('UserController', () => {
   let controller: UserController;
@@ -41,7 +41,7 @@ describe('UserController', () => {
         {
           username: 'test',
           email: 'test@test.com',
-          role: [Role.ADMIN],
+          roles: [Role.ADMIN],
           password: 'xyz',
           conversations: [
             {
