@@ -1,13 +1,13 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { HttpStatus, INestApplication } from '@nestjs/common';
 import * as request from 'supertest';
-import { AppModule } from '../../app.module';
-import { MongoExceptionFilter } from '../../exception-filters/mongo-exception.filter';
+import { AppModule } from '@main/app.module';
+import { MongoExceptionFilter } from '@main/exception-filters/mongo-exception.filter';
 
-import { UserBuilder } from '../../../test/builder/user.builder';
+import { UserBuilder } from '@main/test/builder/user.builder';
 
 import { faker } from '@faker-js/faker';
-import { User } from '../../user/schema/user.schema';
+import { User } from '@main/user/schema/user.schema';
 import { Role } from '@virtual-me/virtual-me-ts-core';
 
 describe('AuthController', () => {

@@ -7,4 +7,8 @@ module.exports = {
     "^.+\\.(t|j)s$": "ts-jest"
   },
   preset: "@shelf/jest-mongodb",
+  moduleNameMapper: {
+    "^@main/(.*)$": "<rootDir>/apps/main/src/$1",
+    "^@main/test/(.*)$": "<rootDir>/apps/main/test/$1"
+  }
 }
