@@ -1,7 +1,7 @@
 import { TestingModule } from '@nestjs/testing';
 import { Role } from '@virtual-me/virtual-me-ts-core';
-import { User } from '../../src/user/schema/user.schema';
-import { UserService } from '../../src/user/user.service';
+import { User } from '@main/user/schema/user.schema';
+import { UserService } from '@main/user/user.service';
 import { FixtureBuilder } from './fixture.builder';
 import { faker } from '@faker-js/faker';
 

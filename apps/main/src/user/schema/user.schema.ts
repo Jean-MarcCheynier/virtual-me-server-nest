@@ -5,7 +5,7 @@ import * as bcrypt from 'bcrypt';
 import {
   Conversation,
   ConversationSchema,
-} from '@/sapcai/schema/conversation.schema';
+} from '@main/sapcai/schema/conversation.schema';
 
 export type UserDocument = User & Document;
 

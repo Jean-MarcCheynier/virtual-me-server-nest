@@ -18,14 +18,29 @@
     "forceConsistentCasingInFileNames": false,
     "noFallthroughCasesInSwitch": false,
     "paths": {
-      "@/*": ["src/*"], 
-      "@test/*": ["test/*"], 
+      "@main": [
+        "apps/main/src"
+      ],
+      "@main/*": [
+        "apps/main/src/*"
+      ],
+      "@main/test/*": [
+        "apps/main/test/*"
+      ],
+      "@libs/permission": [
+        "libs/permission/src"
+      ],
+      "@libs/permission/*": [
+        "libs/permission/src/*"
+      ]
     }
   },
   "include": [
-    "src/**/*"
+    "apps/**/*",
+    "libs/**/*"
   ],
   "exclude": [
-    "node_modules"
-  ],
+    "node_modules",
+    "dist"
+  ]
 }
