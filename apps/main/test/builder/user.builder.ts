@@ -11,9 +11,10 @@ export class UserBuilder extends FixtureBuilder<User> {
     this.fixture = {
       username: faker.helpers.unique(faker.name.firstName),
       email: faker.helpers.unique(faker.internet.email),
+      firstName: faker.helpers.unique(faker.name.firstName),
+      lastName: faker.helpers.unique(faker.name.lastName),
       roles: [Role.USER],
       password: 'test',
-      conversations: [],
     };
   }
 

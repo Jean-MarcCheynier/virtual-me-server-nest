@@ -13,12 +13,11 @@ import { AppService } from './app.service';
 
 import { AuthModule } from './auth/auth.module';
 import { UserModule } from './user/user.module';
-import { WsModule } from './ws/ws.module';
 import { LoggerMiddleware } from './common/middleware/logger.middleware';
 
 import { RolesGuard } from './auth/guard/roles.guard';
 import { JwtAuthGuard } from './auth/guard/jwt-auth.guard';
-import { SapcaiModule } from './sapcai/sapcai.module';
+import { WishModule } from './wish/wish.module';
 import configuration from './config/configuration';
 
 @Module({
@@ -39,8 +38,7 @@ import configuration from './config/configuration';
     }),
     UserModule,
     AuthModule,
-    WsModule,
-    SapcaiModule,
+    WishModule,
   ],
   controllers: [AppController],
   providers: [

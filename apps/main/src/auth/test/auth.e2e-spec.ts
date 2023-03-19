@@ -4,11 +4,11 @@ import * as request from 'supertest';
 import { AppModule } from '@main/app.module';
 import { MongoExceptionFilter } from '@main/exception-filters/mongo-exception.filter';
 
-import { UserBuilder } from '@main/test/builder/user.builder';
+import { UserBuilder } from '@test/builder/user.builder';
 
 import { faker } from '@faker-js/faker';
 import { User } from '@main/user/schema/user.schema';
-import { Role } from '@virtual-me/virtual-me-ts-core';
+import { Role } from '@main/user/types/role.type';
 
 describe('AuthController', () => {
   let app: INestApplication;
@@ -144,10 +144,12 @@ describe('AuthController', () => {
           .post('/auth/signup')
           .send(signupMock);
 
+        console.log(response.error);
+
         //Assert
         expect(response.status).toBe(HttpStatus.CREATED);
         expect(response.body._id).toBeDefined();
-        expect(response.body.roles).toEqual([Role.USER]);
+        expect(response.body.roles).toEqual([Role.PRE]);
         expect(response.body.email).toBe(signupMock.email);
         expect(response.body.username).toBe(signupMock.username);
       });

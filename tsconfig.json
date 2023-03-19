@@ -24,7 +24,7 @@
       "@main/*": [
         "apps/main/src/*"
       ],
-      "@main/test/*": [
+      "@test/*": [
         "apps/main/test/*"
       ],
       "@libs/permission": [
