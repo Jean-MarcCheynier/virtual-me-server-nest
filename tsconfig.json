@@ -27,12 +27,6 @@
       "@test/*": [
         "apps/main/test/*"
       ],
-      "@libs/permission": [
-        "libs/permission/src"
-      ],
-      "@libs/permission/*": [
-        "libs/permission/src/*"
-      ]
     }
   },
   "include": [
