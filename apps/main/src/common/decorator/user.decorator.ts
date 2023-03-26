@@ -1,5 +1,5 @@
+import { User as LocalUser } from '@main/user/schema/user.schema';
 import { createParamDecorator, ExecutionContext } from '@nestjs/common';
-import { User as LocalUser } from 'src/user/schema/user.schema';
 
 export const User = createParamDecorator(
   (data: unknown, ctx: ExecutionContext) => {

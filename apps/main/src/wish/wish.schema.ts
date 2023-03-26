@@ -1,8 +1,9 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
 
-import { State } from './state';
+import { State } from './interfaces/state.enum';
 import { Donation, DonationSchema } from './donation.schema';
+import { Status } from './interfaces/status.enum';
 
 export type WishDocument = Wish & Document;
 
@@ -12,22 +13,25 @@ export class Wish {
   name: string;
 
   @Prop({ type: String, required: false })
-  url: string;
+  url?: string;
 
   @Prop({ type: String, required: false })
-  imageUrl: string;
+  imageUrl?: string;
 
   @Prop({ type: Number, required: false })
-  price: number;
+  price?: number;
 
   @Prop({ type: [String], default: [], required: true })
-  states: State[];
+  states: State[] = [];
+
+  @Prop({ type: [String], default: Status.Draft, required: true })
+  status = Status.Draft;
 
   @Prop({ type: String })
-  description: string;
+  description?: string;
 
   @Prop({ type: [DonationSchema], default: [] })
-  donation: Donation[];
+  donations: Donation[] = [];
 }
 
 export const WishSchema = SchemaFactory.createForClass(Wish);
