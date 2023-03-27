@@ -17,24 +17,11 @@
     "strictBindCallApply": false,
     "forceConsistentCasingInFileNames": false,
     "noFallthroughCasesInSwitch": false,
+
     "paths": {
-      "@main": [
-        "apps/main/src"
-      ],
-      "@main/*": [
-        "apps/main/src/*"
-      ],
-      "@test/*": [
-        "apps/main/test/*"
-      ],
+      "@main": ["apps/main/src"],
+      "@main/*": ["apps/main/src/*"],
+      "@test/*": ["apps/main/test/*"]
     }
-  },
-  "include": [
-    "apps/**/*",
-    "libs/**/*"
-  ],
-  "exclude": [
-    "node_modules",
-    "dist"
-  ]
+  }
 }
