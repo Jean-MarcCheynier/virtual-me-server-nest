@@ -1,14 +1,14 @@
 import { Injectable } from '@nestjs/common';
-import { InjectModel } from '@nestjs/mongoose';
-import { AnyKeys, Model } from 'mongoose';
-import { MongoRepository } from '@main/mongo-repository/abstract-mongo.repositiory';
-
-import { Wish, WishDocument } from './wish.schema';
 import { WishRepository } from './wish.repository';
+import { Wish } from './wish.schema';
 
 @Injectable()
 export class WishUseCase {
   constructor(private wishRepository: WishRepository) {}
+
+  findAll(): Promise<Wish[]> {
+    return this.wishRepository.findAll();
+  }
 
   create(createWishDto: Partial<Wish>): Promise<Wish> {
     return this.wishRepository.create(createWishDto);

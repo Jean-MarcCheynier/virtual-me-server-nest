@@ -54,7 +54,7 @@ export class WishEntity<S extends Status | unknown = unknown> {
 export class DraftWishEntity extends PartialType(WishEntity) {}
 export class PublishedEntity extends WishEntity<Status.Published> {}
 
-export class CreatedWishDto extends PickType(WishEntity, ['name'] as const) {}
+export class CreateWishDto extends PickType(WishEntity, ['name'] as const) {}
 export class UpdateWishDto extends PickType(WishEntity, [
   'name',
   'url',
