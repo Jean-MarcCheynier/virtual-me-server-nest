@@ -1,5 +1,4 @@
-import { PickType } from '@nestjs/mapped-types';
-import { PartialType } from '@nestjs/swagger';
+import { PartialType } from '@nestjs/mapped-types';
 import {
   IsEnum,
   IsNumber,
@@ -20,6 +19,11 @@ type Ediatable<S extends Status | unknown, T> = S extends Status.Published
 export class WishEntity<S extends Status | unknown = unknown> {
   @IsUUID()
   id: string;
+
+  /**
+   * Wish name
+   * @example My Whish
+   */
   @IsString()
   name: Ediatable<S, string>;
   @IsUrl()
@@ -53,13 +57,3 @@ export class WishEntity<S extends Status | unknown = unknown> {
 
 export class DraftWishEntity extends PartialType(WishEntity) {}
 export class PublishedEntity extends WishEntity<Status.Published> {}
-
-export class CreateWishDto extends PickType(WishEntity, ['name'] as const) {}
-export class UpdateWishDto extends PickType(WishEntity, [
-  'name',
-  'url',
-  'imageUrl',
-  'price',
-  'states',
-  'description',
-] as const) {}

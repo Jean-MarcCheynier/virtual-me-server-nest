@@ -12,12 +12,13 @@ async function bootstrap() {
     .setTitle('VirtualMe OAS')
     .setDescription('The virtual-me API description')
     .setVersion('2.0')
-    .addSecurity('bearerAuth', {
+    .addBearerAuth()
+    /*     .addSecurity('bearerAuth', {
       type: 'http',
       scheme: 'bearer',
       bearerFormat: '{{ JWT }}',
     })
-    .addSecurityRequirements('bearerAuth', [])
+    .addSecurityRequirements('bearerAuth', []) */
     .build();
 
   const document = SwaggerModule.createDocument(app, config);
