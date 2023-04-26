@@ -1,11 +1,7 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Role } from '@virtual-me/virtual-me-ts-core';
 import { Document } from 'mongoose';
 import * as bcrypt from 'bcrypt';
-import {
-  Conversation,
-  ConversationSchema,
-} from '@main/sapcai/schema/conversation.schema';
+import { Role } from '@main/user/types/role.type';
 
 export type UserDocument = User & Document;
 
@@ -14,17 +10,20 @@ export class User {
   @Prop({ type: String, required: true, unique: true })
   username: string;
 
+  @Prop({ type: String })
+  firstName?: string;
+
+  @Prop({ type: String })
+  lastName?: string;
+
   @Prop({ type: String, required: false, unique: true })
   email?: string;
 
-  @Prop({ type: [String], default: [Role.USER], required: true })
+  @Prop({ type: [String], default: [Role.PRE], required: true })
   roles: Role[];
 
   @Prop({ type: String, required: true, select: false })
   password: string;
-
-  @Prop({ type: [ConversationSchema] })
-  conversations: Array<Conversation>;
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);

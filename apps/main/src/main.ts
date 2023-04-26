@@ -1,7 +1,7 @@
+import { AppModule } from '@main/app.module';
+import { customOptions } from '@main/swagger/options';
 import { NestFactory } from '@nestjs/core';
-import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
-import { AppModule } from './app.module';
-import { customOptions } from './swagger/options';
+import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -12,12 +12,13 @@ async function bootstrap() {
     .setTitle('VirtualMe OAS')
     .setDescription('The virtual-me API description')
     .setVersion('2.0')
-    .addSecurity('bearerAuth', {
+    .addBearerAuth()
+    /*     .addSecurity('bearerAuth', {
       type: 'http',
       scheme: 'bearer',
       bearerFormat: '{{ JWT }}',
     })
-    .addSecurityRequirements('bearerAuth', [])
+    .addSecurityRequirements('bearerAuth', []) */
     .build();
 
   const document = SwaggerModule.createDocument(app, config);
