@@ -6,7 +6,6 @@ import { RolesGuard } from '@main/auth/guard/roles.guard';
 import { LoggerMiddleware } from '@main/common/middleware/logger.middleware';
 import configuration from '@main/config/configuration';
 import { UserModule } from '@main/user/user.module';
-import { WishModule } from '@main/wish/wish.module';
 import {
   MiddlewareConsumer,
   Module,
@@ -37,7 +36,6 @@ import { MongooseModule } from '@nestjs/mongoose';
     }),
     UserModule,
     AuthModule,
-    WishModule,
   ],
   controllers: [AppController],
   providers: [
