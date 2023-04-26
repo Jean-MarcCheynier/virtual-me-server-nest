@@ -1,4 +1,9 @@
-import { PartialType } from '@nestjs/mapped-types';
+import {
+  IntersectionType,
+  OmitType,
+  PartialType,
+  PickType,
+} from '@nestjs/mapped-types';
 import {
   IsEnum,
   IsNumber,
@@ -11,12 +16,13 @@ import {
 import { Donation } from '../donation.schema';
 import { State } from '../interfaces/state.enum';
 import { Status } from '../interfaces/status.enum';
+import { DraftProductEntity, ProductEntity } from './product.entity';
 
-type Ediatable<S extends Status | unknown, T> = S extends Status.Published
-  ? T
-  : T | undefined;
-
-export class WishEntity<S extends Status | unknown = unknown> {
+type EntityState = 'draft' | 'published';
+/**
+ * Represents the published entity
+ */
+export class WishEntity<T extends EntityState = 'published'> {
   @IsUUID()
   id: string;
 
@@ -25,28 +31,36 @@ export class WishEntity<S extends Status | unknown = unknown> {
    * @example My Whish
    */
   @IsString()
-  name: Ediatable<S, string>;
+  name: string;
+
   @IsUrl()
-  url: Ediatable<S, string>;
+  url: string;
+
   @IsUrl()
-  imageUrl: Ediatable<S, string>;
+  imageUrl: string;
+
+  product: T extends 'draft' ? DraftProductEntity : ProductEntity;
+
   @IsNumber()
-  price: Ediatable<S, number>;
+  price: number;
+
   @IsEnum(State)
-  states: Ediatable<S, State[]>;
+  states: State[];
+
   @IsString()
-  description: Ediatable<S, string>;
+  description: string;
+
   @ValidateNested()
-  donations: Ediatable<S, Donation[]>;
+  donations: Donation[];
 
   @IsEnum(Status)
-  private _status: Ediatable<S, Status>;
+  private _status: Status;
 
   get status() {
     return this._status;
   }
 
-  set status(status: Ediatable<S, Status>) {
+  set status(status: Status) {
     const errors = validateSync(this);
     if (status === Status.Published && errors.length !== 0) {
       throw Error(JSON.stringify(errors));
@@ -55,5 +69,10 @@ export class WishEntity<S extends Status | unknown = unknown> {
   }
 }
 
-export class DraftWishEntity extends PartialType(WishEntity) {}
-export class PublishedEntity extends WishEntity<Status.Published> {}
+const editableKeys: readonly (keyof WishEntity)[] = ['url', 'imageUrl'];
+
+export class DraftWishEntity extends IntersectionType(
+  OmitType(WishEntity<'draft'>, editableKeys),
+  PartialType(PickType(WishEntity<'draft'>, editableKeys)),
+) {}
+

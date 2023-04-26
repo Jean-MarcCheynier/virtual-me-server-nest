@@ -1,14 +1,12 @@
-import { Test, TestingModule } from '@nestjs/testing';
-import { HttpStatus, INestApplication } from '@nestjs/common';
-import * as request from 'supertest';
+import { faker } from '@faker-js/faker';
 import { AppModule } from '@main/app.module';
 import { MongoExceptionFilter } from '@main/exception-filters/mongo-exception.filter';
-
-import { UserBuilder } from '@test/builder/user.builder';
-
-import { faker } from '@faker-js/faker';
 import { User } from '@main/user/schema/user.schema';
 import { Role } from '@main/user/types/role.type';
+import { HttpStatus, INestApplication } from '@nestjs/common';
+import { Test, TestingModule } from '@nestjs/testing';
+import { UserBuilder } from '@test/builder/user.builder';
+import * as request from 'supertest';
 
 describe('AuthController', () => {
   let app: INestApplication;
@@ -143,8 +141,6 @@ describe('AuthController', () => {
         const response = await request(app.getHttpServer())
           .post('/auth/signup')
           .send(signupMock);
-
-        console.log(response.error);
 
         //Assert
         expect(response.status).toBe(HttpStatus.CREATED);
