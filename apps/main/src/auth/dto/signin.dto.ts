@@ -1,16 +1,13 @@
-import { ApiProperty } from '@nestjs/swagger';
-
 export class SigninDto {
-  @ApiProperty({
-    example: 'robert',
-    description: 'Username',
-    required: true,
-  })
+  /**
+   * Username
+   * @example jm
+   */
   username: string;
-  @ApiProperty({
-    example: 'redford',
-    description: 'User name',
-    required: true,
-  })
+
+  /**
+   * Username
+   * @example lolpop
+   */
   password: string;
 }

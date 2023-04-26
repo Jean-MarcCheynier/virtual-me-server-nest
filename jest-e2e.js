@@ -1,14 +1,14 @@
 module.exports = {
-  moduleFileExtensions: ["js", "json", "ts"],
-  rootDir: ".",
-  testEnvironment: "node",
+  moduleFileExtensions: ['js', 'json', 'ts'],
+  rootDir: '.',
+  testEnvironment: 'node',
   testRegex: '.*/*\\.e2e-spec\\.ts$',
   transform: {
-    "^.+\\.(t|j)s$": "ts-jest"
+    '^.+\\.(t|j)s$': 'ts-jest',
   },
-  preset: "@shelf/jest-mongodb",
+  preset: '@shelf/jest-mongodb',
   moduleNameMapper: {
-    "^@main/(.*)$": "<rootDir>/apps/main/src/$1",
-    "^@main/test/(.*)$": "<rootDir>/apps/main/test/$1"
-  }
-}
+    '^@main/(.*)$': '<rootDir>/apps/main/src/$1',
+    '^@test/(.*)$': '<rootDir>/apps/main/test/$1',
+  },
+};

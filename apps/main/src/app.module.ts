@@ -1,3 +1,11 @@
+import { AppController } from '@main/app.controller';
+import { AppService } from '@main/app.service';
+import { AuthModule } from '@main/auth/auth.module';
+import { JwtAuthGuard } from '@main/auth/guard/jwt-auth.guard';
+import { RolesGuard } from '@main/auth/guard/roles.guard';
+import { LoggerMiddleware } from '@main/common/middleware/logger.middleware';
+import configuration from '@main/config/configuration';
+import { UserModule } from '@main/user/user.module';
 import {
   MiddlewareConsumer,
   Module,
@@ -5,21 +13,8 @@ import {
   RequestMethod,
 } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
-import { MongooseModule } from '@nestjs/mongoose';
 import { APP_GUARD } from '@nestjs/core';
-
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
-
-import { AuthModule } from './auth/auth.module';
-import { UserModule } from './user/user.module';
-import { WsModule } from './ws/ws.module';
-import { LoggerMiddleware } from './common/middleware/logger.middleware';
-
-import { RolesGuard } from './auth/guard/roles.guard';
-import { JwtAuthGuard } from './auth/guard/jwt-auth.guard';
-import { SapcaiModule } from './sapcai/sapcai.module';
-import configuration from './config/configuration';
+import { MongooseModule } from '@nestjs/mongoose';
 
 @Module({
   imports: [
@@ -31,16 +26,16 @@ import configuration from './config/configuration';
     }),
     MongooseModule.forRootAsync({
       imports: [ConfigModule],
-      useFactory: async (config: ConfigService) => ({
-        uri: config.get('database.uri'),
-        dbName: config.get('database.name'),
-      }),
       inject: [ConfigService],
+      useFactory: async (config: ConfigService) => {
+        return {
+          uri: config.get('database.uri'),
+          dbName: config.get('database.name'),
+        };
+      },
     }),
     UserModule,
     AuthModule,
-    WsModule,
-    SapcaiModule,
   ],
   controllers: [AppController],
   providers: [

@@ -1,16 +1,23 @@
 {
+  "$schema": "https://json.schemastore.org/nest-cli",
   "collection": "@nestjs/schematics",
   "sourceRoot": "apps/main/src",
-  "projects": {
-    "permission": {
-      "type": "library",
-      "root": "libs/permission",
-      "entryFile": "index",
-      "sourceRoot": "libs/permission/src",
-      "compilerOptions": {
-        "tsConfigPath": "libs/permission/tsconfig.lib.json"
+  "monorepo": true,
+  "root": "apps/main",
+  "compilerOptions": {
+    "plugins": [
+      {
+        "name": "@nestjs/swagger",
+        "options": {
+          "classValidatorShim": true,
+          "introspectComments": true
+        }
       }
-    },
+    ],
+    "tsConfigPath": "apps/main/tsconfig.app.json",
+    "webpack": false
+  },
+  "projects": {
     "main": {
       "type": "application",
       "root": "apps/main",
@@ -20,11 +27,5 @@
         "tsConfigPath": "apps/main/tsconfig.app.json"
       }
     }
-  },
-  "compilerOptions": {
-    "webpack": true,
-    "tsConfigPath": "apps/main/tsconfig.app.json"
-  },
-  "monorepo": true,
-  "root": "apps/main"
+  }
 }
