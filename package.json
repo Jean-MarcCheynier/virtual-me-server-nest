@@ -1,5 +1,5 @@
 {
-  "name": "project-name",
+  "name": "main",
   "version": "0.0.1",
   "description": "",
   "author": "",
@@ -21,9 +21,10 @@
     "test:e2e": "jest --config ./jest-e2e.js"
   },
   "dependencies": {
+    "@googlemaps/google-maps-services-js": "^3.3.30",
     "@nestjs/axios": "^0.0.7",
     "@nestjs/common": "^8.0.0",
-    "@nestjs/config": "^1.1.6",
+    "@nestjs/config": "^2.3.2",
     "@nestjs/core": "^8.0.0",
     "@nestjs/jwt": "^8.0.0",
     "@nestjs/mapped-types": "*",
@@ -38,6 +39,8 @@
     "@virtual-me/virtual-me-ts-core": "^1.0.30",
     "axios": "^0.26.1",
     "bcrypt": "^5.0.1",
+    "class-transformer": "^0.5.1",
+    "class-validator": "^0.14.0",
     "dotenv": "^16.0.3",
     "helmet": "^5.0.1",
     "mongoose": "^6.1.4",

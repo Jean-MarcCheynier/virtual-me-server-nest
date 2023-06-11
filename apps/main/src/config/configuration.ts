@@ -11,4 +11,7 @@ export default () => ({
     dialog_url: process.env.SAP_CAI_DIALOG_URL,
     xtoken: process.env.SAP_CAI_XTOKEN,
   },
+  google: {
+    map_api_key: process.env.GOOGLE_MAP_API_KEY,
+  },
 });

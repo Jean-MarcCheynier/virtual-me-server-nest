@@ -19,12 +19,14 @@ import { LoggerMiddleware } from './common/middleware/logger.middleware';
 import { RolesGuard } from './auth/guard/roles.guard';
 import { JwtAuthGuard } from './auth/guard/jwt-auth.guard';
 import { SapcaiModule } from './sapcai/sapcai.module';
+import { InterestModule } from './interest/interest.module';
+import { AddressModule } from './address/address.module';
 import configuration from './config/configuration';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
-      envFilePath: '.env.development',
+      envFilePath: ['.env.development', '.env'],
       isGlobal: true,
       load: [configuration],
       cache: true,
@@ -41,6 +43,8 @@ import configuration from './config/configuration';
     AuthModule,
     WsModule,
     SapcaiModule,
+    InterestModule,
+    AddressModule,
   ],
   controllers: [AppController],
   providers: [
