@@ -24,8 +24,7 @@ export class AddressController {
   }
 
   @Get('search')
-  search(@Query() searchAddress: SearchAddressDto) {
-    const { query, language } = searchAddress;
+  search(@Query('query') query: string, @Query('language') language: Language) {
     return this.addressService.search(query, language);
   }
 
