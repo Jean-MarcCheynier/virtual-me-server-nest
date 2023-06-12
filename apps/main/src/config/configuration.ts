@@ -14,4 +14,7 @@ export default () => ({
   google: {
     map_api_key: process.env.GOOGLE_MAP_API_KEY,
   },
+  log: {
+    level: process.env.LOG_LEVEL,
+  },
 });

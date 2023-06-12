@@ -1,5 +1,5 @@
 import { Client, Language } from '@googlemaps/google-maps-services-js';
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { CreateAddressDto } from './dto/create-address.dto';
 import { UpdateAddressDto } from './dto/update-address.dto';
 import { ConfigService } from '@nestjs/config';
@@ -11,6 +11,7 @@ export class AddressService {
   constructor(
     private configService: ConfigService,
     private httpService: HttpService,
+    private logger: Logger,
   ) {}
 
   create(createAddressDto: CreateAddressDto) {
@@ -21,14 +22,6 @@ export class AddressService {
     const TEXT_SEARCH_API_URL =
       'https://maps.googleapis.com/maps/api/place/textsearch/json';
 
-    console.log('-- params: ', {
-      query,
-      inputtype: 'textquery',
-      key: this.configService.get<string>('google.map_api_key'),
-      fields: 'formatted_address,name,geometry',
-      language,
-    });
-
     const { data, request } = await firstValueFrom(
       this.httpService.get(TEXT_SEARCH_API_URL, {
         params: {
@@ -38,8 +31,6 @@ export class AddressService {
         },
       }),
     );
-
-    console.log(request);
 
     return data.results;
   }
