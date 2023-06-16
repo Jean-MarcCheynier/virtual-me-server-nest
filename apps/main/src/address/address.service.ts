@@ -22,7 +22,7 @@ export class AddressService {
     const TEXT_SEARCH_API_URL =
       'https://maps.googleapis.com/maps/api/place/textsearch/json';
 
-    const { data, request } = await firstValueFrom(
+    /*     const { data, request } = await firstValueFrom(
       this.httpService.get(TEXT_SEARCH_API_URL, {
         params: {
           query,
@@ -30,7 +30,15 @@ export class AddressService {
           key: this.configService.get<string>('google.map_api_key'),
         },
       }),
-    );
+    ); */
+
+    const client = new Client({});
+    const { data } = await client.textSearch({
+      params: {
+        key: this.configService.get<string>('google.map_api_key'),
+        query,
+      },
+    });
 
     return data.results;
   }
