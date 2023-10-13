@@ -11,10 +11,9 @@ import {
 import { ApiTags } from '@nestjs/swagger';
 import { LocalAuthGuard } from './guard/local-auth.guard';
 import { AuthService } from './auth.service';
-import { SigninDto } from './dto/signin.dto';
+import { SignInDto } from './dto/sign-in.dto';
 import { Public } from '../common/decorator/public.decorator';
-import { SignupDto } from './dto/signupDto';
-import { AuthGuard } from '@nestjs/passport';
+import { SignUpDto } from './dto/sign-up.dto';
 import { User } from '../user/schema/user.schema';
 
 @ApiTags('Auth')
@@ -26,14 +25,14 @@ export class AuthController {
   @UseGuards(LocalAuthGuard)
   @Post('signin')
   @HttpCode(HttpStatus.OK)
-  async sigin(@Body() signinDto: SigninDto, @Request() req) {
-    return this.authService.signin(req.user);
+  async sigIn(@Body() _signInDto: SignInDto, @Request() req) {
+    return this.authService.signIn(req.user);
   }
 
   @Public()
   @Post('signup')
-  async signup(@Body() signupDto: SignupDto) {
-    const createdUser: User = await this.authService.signup(signupDto);
+  async signup(@Body() signupDto: SignUpDto) {
+    const createdUser: User = await this.authService.signUp(signupDto);
     console.log(createdUser);
     return createdUser;
   }

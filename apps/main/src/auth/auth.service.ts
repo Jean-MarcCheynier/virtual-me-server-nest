@@ -3,7 +3,7 @@ import { UserService } from '../user/user.service';
 import { compare } from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
 import { CreateUserDto } from '../user/dto/create-user.dto';
-import { SignupDto } from './dto/signupDto';
+import { SignUpDto } from './dto/sign-up.dto';
 
 @Injectable()
 export class AuthService {
@@ -23,7 +23,7 @@ export class AuthService {
     return null;
   }
 
-  async signin(user: any) {
+  async signIn(user: any) {
     const payload = {
       username: user.username,
       role: user.role,
@@ -34,11 +34,11 @@ export class AuthService {
     };
   }
 
-  async signup(signupDto: SignupDto) {
-    const creatUserDto = new CreateUserDto();
-    creatUserDto.username = signupDto.username;
-    creatUserDto.password = signupDto.password;
-    creatUserDto.email = signupDto.email;
-    return this.usersService.create(creatUserDto);
+  async signUp(signupDto: SignUpDto) {
+    const createUserDto = new CreateUserDto();
+    createUserDto.username = signupDto.username;
+    createUserDto.password = signupDto.password;
+    createUserDto.email = signupDto.email;
+    return this.usersService.create(createUserDto);
   }
 }
