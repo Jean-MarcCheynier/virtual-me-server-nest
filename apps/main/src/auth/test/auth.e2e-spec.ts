@@ -1,5 +1,10 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { HttpStatus, INestApplication } from '@nestjs/common';
+import {
+  BadRequestException,
+  HttpStatus,
+  INestApplication,
+  ValidationPipe,
+} from '@nestjs/common';
 import * as request from 'supertest';
 import { AppModule } from '@main/app.module';
 import { MongoExceptionFilter } from '@main/exception-filters/mongo-exception.filter';
@@ -9,6 +14,8 @@ import { UserBuilder } from '@main/test/builder/user.builder';
 import { faker } from '@faker-js/faker';
 import { User } from '@main/user/schema/user.schema';
 import { Role } from '@virtual-me/virtual-me-ts-core';
+import { ValidationError } from 'class-validator';
+import { SignUpDto } from '../dto/sign-up.dto';
 
 describe('AuthController', () => {
   let app: INestApplication;
@@ -22,6 +29,18 @@ describe('AuthController', () => {
     userBuilder = new UserBuilder(testingModule);
 
     app = testingModule.createNestApplication();
+    app.useGlobalPipes(
+      new ValidationPipe({
+        exceptionFactory: (validationErrors: ValidationError[] = []) => {
+          return new BadRequestException(
+            validationErrors.map((error) => ({
+              field: error.property,
+              error: error.constraints,
+            })),
+          );
+        },
+      }),
+    );
     app.useGlobalFilters(new MongoExceptionFilter());
 
     await app.init();
@@ -129,13 +148,54 @@ describe('AuthController', () => {
         expect(response.status).toBe(HttpStatus.BAD_REQUEST);
       });
       it(`
+        WHEN signing up with a weak password 
+        THEN an eror 400 should be thrown
+      `, async () => {
+        //Arrange
+        const signupMock = {
+          username: existingUser.username,
+          password: 'weak',
+          passwordRepeat: 'weak',
+          email: faker.helpers.unique(faker.internet.email),
+        };
+
+        //Act
+        const response = await request(app.getHttpServer())
+          .post('/auth/signup')
+          .send(signupMock);
+
+        //Assert
+        expect(response.status).toBe(HttpStatus.BAD_REQUEST);
+      });
+      it(`
+        WHEN signing up with a passwordRepeat that does not match the password 
+        THEN an eror 400 should be thrown
+      `, async () => {
+        //Arrange
+        const signupMock = {
+          username: existingUser.username,
+          password: 'FakeP0ss',
+          passwordRepeat: 'FakeP1ss',
+          email: faker.helpers.unique(faker.internet.email),
+        };
+
+        //Act
+        const response = await request(app.getHttpServer())
+          .post('/auth/signup')
+          .send(signupMock);
+
+        //Assert
+        expect(response.status).toBe(HttpStatus.BAD_REQUEST);
+      });
+      it(`
         WHEN signing up with a unique email and username 
         THEN a new user should be retrieved
       `, async () => {
         //Arrange
-        const signupMock = {
+        const signupMock: SignUpDto = {
           username: faker.helpers.unique(faker.name.firstName),
-          password: 'test',
+          password: 'FakeP0ss',
+          passwordRepeat: 'FakeP0ss',
           email: faker.helpers.unique(faker.internet.email),
         };
 

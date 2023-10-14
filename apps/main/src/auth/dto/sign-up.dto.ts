@@ -41,7 +41,6 @@ export class SignUpDto {
    * Password repeat - should match password,
    * @example "Xyz0Xyz0"
    */
-
   @IsEqualToProperty('password')
   passwordRepeat: string;
 }
