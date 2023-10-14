@@ -11,10 +11,15 @@ export type UserDocument = User & Document;
 
 @Schema()
 export class User {
-  @Prop({ type: String, required: true, unique: true })
+  @Prop({ type: String, required: true, unique: true, index: true })
   username: string;
 
-  @Prop({ type: String, required: false, unique: true })
+  @Prop({
+    type: String,
+    required: false,
+    index: true,
+    sparse: true,
+  })
   email?: string;
 
   @Prop({ type: [String], default: [Role.USER], required: true })

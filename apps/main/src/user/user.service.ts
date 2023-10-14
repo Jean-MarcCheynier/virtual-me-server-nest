@@ -32,6 +32,10 @@ export class UserService implements MongoRepository<User> {
     return this.userModel.findOne({ username }).select('+password').exec();
   }
 
+  findByEmail(email: string) {
+    return this.userModel.findOne({ email }).select('+password').exec();
+  }
+
   startConversation(userId: string, conversationId: string) {
     const newConversation: Conversation = {
       conversationId,
