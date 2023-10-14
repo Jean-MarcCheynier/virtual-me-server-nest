@@ -1,4 +1,14 @@
 {
-    "jestrunner.configPath": "jest-e2e.js"
+  "jestrunner.configPath": "./jest-e2e.js",
+  "jestrunner.jestCommand": "yarn run jest --",
+  "jestrunner.debugOptions": {
+    "runtimeArgs": [
+      "test",
+      "${fileBasename}",
+      "--runInBand",
+      "--no-cache",
+      "--watchAll=false",
+      "--color"
+    ]
+  }
 }
-
